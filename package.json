@@ -1,0 +1,15 @@
+{
+  "name": "recipes",
+  "version": "1.0.0",
+  "description": "Yet Another Recipe Book App",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest src/**/*.spec.ts"
+  },
+  "author": "David Souther",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^8.3.1",
+    "typescript": "^4.4.2"
+  }
+}
