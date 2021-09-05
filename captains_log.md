@@ -19,3 +19,15 @@
     * Create cypress/tsconfig.json
       * npm i -D cypress typescript
   * create docker-compose
+
+## Next.JS First Route
+
+* npx create-next-app --typescript yarba
+* Edit <Title> in yarba/pages/index.tsx
+* docker run -it -v $PWD/yarba:/yarba -w /yarba -p 3000:3000 node:current-alpine npm run dev
+* Create docker-compose entry
+* docker-compose up recipes
+* docker-compose run cypress
+* Rename docker-compose services
+* Add docker compose test services
+* Set docker-compose profiles
