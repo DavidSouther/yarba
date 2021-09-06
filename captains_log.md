@@ -45,3 +45,14 @@ Cypress was tricky to set up, because it requires a display server.
 On OSX, this comes from the xquartz server.
 On linux, this should be as straightforward as using DISPLAY=172.17.0.1:0.
 On windows, the tool [xming](https://sourceforge.net/projects/xming/) might be the best bet?
+
+# Unit Tests and Recipe List
+
+## Jest configure jest
+
+* https://nextjs.org/docs/testing#manual-setup-1
+* npm install --save-dev jest babel-jest @testing-library/react @testing-library/jest-dom identity-obj-proxy react-test-renderer
+* Edit files (mostly) as suggested
+* cd yarba
+* npm run test:watch
+* 
