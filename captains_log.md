@@ -55,4 +55,10 @@ On windows, the tool [xming](https://sourceforge.net/projects/xming/) might be t
 * Edit files (mostly) as suggested
 * cd yarba
 * npm run test:watch
-* 
+
+## Configure Tailwind
+
+* https://tailwindcss.com/docs/guides/nextjs
+* npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+* Edit files
+
