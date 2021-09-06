@@ -31,3 +31,17 @@
 * Rename docker-compose services
 * Add docker compose test services
 * Set docker-compose profiles
+
+## Functional Requirements
+
+* Listed out functional requirements, and created functional spec stubs.
+
+## Section Summary:
+
+Put together the initial project functional requirements, tests, and execution outline.
+The project is coordinated using Docker Alpine images.
+These off-the-shelf images for each language type handle pre-built issues, and let us run code directly from the host development system.
+Cypress was tricky to set up, because it requires a display server. 
+On OSX, this comes from the xquartz server.
+On linux, this should be as straightforward as using DISPLAY=172.17.0.1:0.
+On windows, the tool [xming](https://sourceforge.net/projects/xming/) might be the best bet?
