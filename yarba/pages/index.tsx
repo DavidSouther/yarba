@@ -1,17 +1,21 @@
-import type { NextPage } from "next";
-import Head from "next/head";
+import Content from "components/content";
+import { Recipe } from "models/recipe";
+import { listRecipes } from "models/repositories/recipe";
+import type { GetServerSideProps, NextPage } from "next";
+import RecipeList from "views/recipe_list";
 
-const Home: NextPage = () => {
+type Props = { recipes: Recipe[] };
+
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const recipes = await listRecipes();
+  return { props: { recipes } };
+};
+
+const Home: NextPage<Props> = ({ recipes }) => {
   return (
-    <>
-      <Head>
-        <title>Recipes</title>
-        <meta name="description" content="Yet Another Recipe Book App" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <h1 className="text-3xl">Recipes</h1>
-    </>
+    <Content title="Recipes">
+      <RecipeList recipes={recipes} />
+    </Content>
   );
 };
 
