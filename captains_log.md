@@ -62,3 +62,22 @@ On windows, the tool [xming](https://sourceforge.net/projects/xming/) might be t
 * npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 * Edit files
 
+## Project Layout
+
+* /pages is _not_ views.
+* /pages is only for URL routing
+* /pages is responsible for maping url params to /views
+* /pages/api is responsible for mapping url params to /services
+* /models has base domain models and logic.
+* /models/entities wires /models to ORM schema
+* /models/repositories wraps /models to backends
+* /services perform operations on /models using /models/repositories
+* /components are FCs abstracting DOM & Tailwind
+* foo.test.ts lives adjacent files with testable logic
+* /\__tests__ mirrors /pages and has unit tests for Params to Views and Services
+
+## TypeORM
+
+* TypeORM has synchronize: true on for devel
+* Currently needs the db service up before running
+* Need to write an in-memory config for local development
