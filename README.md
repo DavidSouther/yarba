@@ -30,13 +30,20 @@ The meal view has a summary of all ingredients for all recipes.
 Recipes can be expanded in the page individually.
 Recipes can be removed individually, and a "Clear meal" button removes all recipes.
 
-## Creating a shopping list
+### Creating a shopping list
 Viewing a meal shows a Servings input.
 Changing the number of servings scales the ingredients for each recipe.
 Clicking "Shopping List" generates a shopping list view.
 
-## Searching by ingredients
+### Searching by ingredients
 An ingredients page shows all ingredients used in any recipe.
 This table can be filtered by ingredient name, and rows can be selected.
 A second list shows recipes with all ingredients that are selected.
 Recipes in this list can be added to the meal.
+
+## Developing
+
+Local development can happen entirely with the `dev` docker-compose profile.
+Otherwise, run `npm run dev` in the [yarba](./yarba) folder.
+Unit tests in `npm run test:watch`.
+Integration test run with `docker-compose run cypress`, or can be watched with `docker-compose up --profile ci cypress-open`.
