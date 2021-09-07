@@ -7,7 +7,15 @@ describe("Recipe UI Tests", () => {
     cy.title().should("contain", "Recipes");
   });
 
-  it("creates recipes");
+  it("creates recipes", () => {
+    cy.get(".nav").contains("New Recipe").click();
+    cy.location("pathname").should("be", "/recipes/new");
+    cy.get("input[name=recipe-name]").type("Chicken");
+    cy.get("form[action=#create]").submit();
+    cy.location("pathname").should("be", "/");
+    cy.get(".recipe-list").contains("Chicken");
+  });
+
   it("shows recipes");
   it("scales a recipe");
   it("selects recipes for a meal");

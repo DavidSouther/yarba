@@ -1,14 +1,11 @@
 {
-    "extends": "../tsconfig.json",
-    "compilerOptions": {
-      "noEmit": true,
-      // be explicit about types included
-      // to avoid clashing with Jest types
-      "types": ["cypress"],
-      "allowJs": true
-    },
-    "include": [
-      "../node_modules/cypress",
-      "./**/*.ts"
-    ]
-  }
+  "extends": "../yarba/tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    // be explicit about types included
+    // to avoid clashing with Jest types
+    "types": ["cypress"],
+    "allowJs": true
+  },
+  "include": ["../node_modules/cypress", "./**/*.ts"]
+}
