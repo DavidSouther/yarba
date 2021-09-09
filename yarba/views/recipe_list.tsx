@@ -8,7 +8,7 @@ const RecipeList: FC<{ recipes: Recipe[] }> = ({ recipes }) => (
       <ul>
         {recipes.map(({ id, recipeName, servingCount }) => (
           <li key={id}>
-            <Link href={`/recipes/:${id}`}>
+            <Link href={`/recipes/+${id}`}>
               <a className="no-underline hover:underline text-blue-700">
                 {recipeName}
               </a>
