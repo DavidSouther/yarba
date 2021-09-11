@@ -1,5 +1,5 @@
 import Content from "components/content";
-import NewRecipeForm from "views/forms/recipe_new";
+import NewRecipeForm from "components/forms/recipe_new";
 import { NextPage } from "next";
 
 const NewRecipe: NextPage = () => (

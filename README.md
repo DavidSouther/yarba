@@ -41,6 +41,9 @@ This table can be filtered by ingredient name, and rows can be selected.
 A second list shows recipes with all ingredients that are selected.
 Recipes in this list can be added to the meal.
 
+### Calorie Estimator
+Using FDA or Weight Watchers API to pull calories for ingredients, display an estimated calories per serving.
+
 ## Developing
 
 Local development can happen entirely with the `dev` docker-compose profile.

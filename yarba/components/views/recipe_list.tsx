@@ -1,6 +1,7 @@
-import { Recipe } from "models/recipe";
+import URLs from "lib/urls";
+import { Recipe } from "lib/models/recipe";
 import { FC } from "react";
-import Link from "next/link";
+import Link from "components/link";
 
 const RecipeList: FC<{ recipes: Recipe[] }> = ({ recipes }) => (
   <>
@@ -8,11 +9,7 @@ const RecipeList: FC<{ recipes: Recipe[] }> = ({ recipes }) => (
       <ul>
         {recipes.map(({ id, recipeName, servingCount }) => (
           <li key={id}>
-            <Link href={`/recipes/+${id}`}>
-              <a className="no-underline hover:underline text-blue-700">
-                {recipeName}
-              </a>
-            </Link>
+            <Link path={URLs.recipe(id!)}>{recipeName}</Link>
             &nbsp;
             <i>makes {servingCount}</i>
           </li>

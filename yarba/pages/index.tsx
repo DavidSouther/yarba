@@ -1,8 +1,8 @@
 import Content from "components/content";
-import { Recipe } from "models/recipe";
-import { listRecipes } from "models/repositories/recipe";
+import { Recipe } from "lib/models/recipe";
+import { listRecipes } from "lib/models/repositories/recipe";
 import type { GetServerSideProps, NextPage } from "next";
-import RecipeList from "views/recipe_list";
+import RecipeList from "components/views/recipe_list";
 
 type Props = { recipes: Recipe[] };
 

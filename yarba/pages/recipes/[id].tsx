@@ -1,8 +1,8 @@
 import Content from "components/content";
-import { Recipe } from "models/recipe";
-import { getRecipe } from "models/repositories/recipe";
+import { Recipe } from "lib/models/recipe";
+import { getRecipe } from "lib/models/repositories/recipe";
 import { GetServerSideProps, NextPage } from "next";
-import RecipeView from "views/recipe";
+import RecipeView from "components/views/recipe";
 
 type Props = { recipe: Recipe };
 

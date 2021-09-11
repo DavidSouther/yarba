@@ -1,7 +1,8 @@
 import Form from "components/form";
 import Input from "components/input";
 import Textarea from "components/textarea";
-import { newRecipe, Recipe } from "models/recipe";
+import { newRecipe, Recipe } from "lib/models/recipe";
+import URLs from "lib/urls";
 import { useRouter } from "next/dist/client/router";
 import { FC, FormEventHandler, useState } from "react";
 
@@ -19,7 +20,7 @@ const NewRecipeForm: FC<{}> = () => {
 
     try {
       await newRecipe(recipe);
-      router.push("/");
+      router.push(URLs.home);
     } catch (e) {
       setErr(e as Error);
     }
