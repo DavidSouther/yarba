@@ -1,5 +1,5 @@
-import { parseRecipe } from "models/recipe";
-import { saveRecipe } from "models/repositories/recipe";
+import { parseRecipe } from "lib/models/recipe";
+import { saveRecipe } from "lib/models/repositories/recipe";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 function isError(err: unknown): err is Error {

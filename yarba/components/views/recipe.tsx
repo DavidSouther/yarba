@@ -1,4 +1,4 @@
-import { Recipe } from "models/recipe";
+import { Recipe } from "lib/models/recipe";
 import { FC } from "react";
 
 export const RecipeView: FC<{ recipe: Recipe }> = ({ recipe }) => (

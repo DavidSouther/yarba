@@ -6,7 +6,9 @@ const Nav = () => (
     <div className="lg:flex lg:items-center lg:justify-between">
       <div className="flex-1 min-w-0">
         <h2 className="text-2xl font-bold leading-7 text-gray-300 sm:text-3xl sm:truncate">
-          <Link path={URLs.home}>Recipes</Link>
+          <Link className="text-gray-300 hover:bg-gray-700" path={URLs.home}>
+            Recipes
+          </Link>
         </h2>
       </div>
       <div className="mt-5 flex lg:mt-0 lg:ml-4">

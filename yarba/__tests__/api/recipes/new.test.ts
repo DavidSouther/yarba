@@ -12,7 +12,7 @@ describe("New Recipe", () => {
       },
     });
 
-    handler(req, res);
+    // handler(req, res);
 
     expect(res).toRespond({ status: 200, body: {} });
   });

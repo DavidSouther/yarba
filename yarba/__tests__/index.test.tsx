@@ -8,7 +8,7 @@ import Home from "../pages/index";
 
 describe("Home", () => {
   it("renders a heading", () => {
-    render(<Home />);
+    render(<Home recipes={[]} />);
 
     const heading = screen.getByRole("heading", {
       name: /Recipes/i,
