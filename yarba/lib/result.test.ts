@@ -1,4 +1,4 @@
-import { Err, None, Ok, Option, Result, Some } from "lib/result";
+import { Err, None, Ok, Option, Result, Some, unwrap } from "lib/result";
 
 describe("Result", () => {
   it("converts Nones", () => {
@@ -31,10 +31,24 @@ describe("Result", () => {
   });
 
   it("converts Oks", () => {
-    const a: Result<string> = Ok("a ok");
+    const a: Ok<string> = Ok("a ok");
     const b: string = Ok(a);
 
     expect(b).toBe("a ok");
+  });
+
+  it("unwraps", () => {
+    const a = Some("some");
+    const b = None();
+    const c = Ok("ok");
+    const d = Err(new Error("err"));
+    const e = "else";
+
+    expect(unwrap(a)).toBe("some");
+    expect(unwrap(c)).toBe("ok");
+    expect(() => unwrap(b)).toThrow("Attempted to unwrap None");
+    expect(() => unwrap(d)).toThrow("err");
+    expect(unwrap(e)).toBe("else");
   });
 });
 
