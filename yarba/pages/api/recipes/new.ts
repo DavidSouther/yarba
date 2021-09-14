@@ -1,23 +1,18 @@
-import { parseRecipe } from "lib/models/recipe";
-import { saveRecipe } from "lib/models/repositories/recipe";
+import { parseRecipe, Recipe } from "lib/models/recipe";
+import { getRepository } from "lib/models/repositories/recipe";
+import { Result, isErr, Ok } from "lib/result";
 import type { NextApiRequest, NextApiResponse } from "next";
-
-function isError(err: unknown): err is Error {
-  return (
-    (err as Error).name !== undefined && (err as Error).message !== undefined
-  );
-}
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<{}>
+  res: NextApiResponse<Result<Recipe, Error>>
 ) {
   const recipe = parseRecipe(req.body);
-  if (isError(recipe)) {
-    res.status(400).json({ error: recipe });
+  if (isErr(recipe)) {
+    res.status(400).json(recipe);
   } else {
     // Save to the database
-    await saveRecipe(recipe);
-    res.status(200).json({ data: recipe });
+    const saved = await getRepository().add(Ok(recipe));
+    res.status(200).json(saved);
   }
 }
