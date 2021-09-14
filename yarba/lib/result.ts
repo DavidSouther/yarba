@@ -33,10 +33,11 @@ export function Ok<T>(t: T | Ok<T>) {
 }
 
 // Beware: Order matters for correct inference.
+export function Err<E extends Error>(e: string): Err<E>;
 export function Err<E extends Error>(e: E): Err<E>;
 export function Err<E extends Error>(err: Err<E>): E;
 export function Err<E extends Error>(e: Err<E> | E) {
-  return (e as Err<E>).err ?? { err: e };
+  return (e as Err<E>).err ?? { err: typeof e === "string" ? new Error(e) : e };
 }
 
 export function unwrap<T>(result: Result<T, Error>): T;
