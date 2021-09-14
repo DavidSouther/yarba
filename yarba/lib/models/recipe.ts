@@ -1,4 +1,4 @@
-import { Err, Ok, Result } from "lib/models/repositories/repository";
+import { Result, Err, Ok } from "lib/result";
 
 export interface Recipe {
   id?: number;

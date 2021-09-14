@@ -1,11 +1,6 @@
 import { Recipe } from "lib/models/recipe";
-import {
-  Repository,
-  Result,
-  RepositoryError,
-  Err,
-  Ok,
-} from "lib/models/repositories/repository";
+import { Repository } from "lib/models/repositories/repository";
+import { Result, RepositoryError, Err, Ok } from "lib/result";
 
 export const makeFakeRecipeRepository = (
   seedRecipes: Recipe[]
@@ -34,7 +29,8 @@ export const makeFakeRecipeRepository = (
           message: `Recipe ${recipe.id} already in fake map`,
         });
       }
-      return Ok(recipes.get(recipe.id!)!);
+      recipes.set(recipe.id!, recipe);
+      return Ok(recipe);
     },
 
     async get(id: number) {

@@ -2,9 +2,14 @@ import { getConnection } from "lib/connection";
 import { RecipeEntity } from "lib/models/entities/recipe";
 import { Recipe } from "lib/models/recipe";
 import { err } from "lib/models/repositories/recipe/recipe";
-import { Repository, Ok } from "lib/models/repositories/repository";
+import { Repository } from "lib/models/repositories/repository";
+import { Ok } from "lib/result";
 import { getRepository } from "typeorm";
 import { Repository as TypeOrmRepository } from "typeorm";
+
+export function makeTypeOrmRecipeRepository() {
+  return TypeOrmRecipeRepository;
+}
 
 async function getRecipeRepository(): Promise<TypeOrmRepository<Recipe>> {
   await getConnection();

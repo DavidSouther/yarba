@@ -1,6 +1,7 @@
 import { parseRecipe, Recipe } from "lib/models/recipe";
 import { err } from "lib/models/repositories/recipe/recipe";
-import { isErr, Ok, Repository } from "lib/models/repositories/repository";
+import { Repository } from "lib/models/repositories/repository";
+import { Ok, isErr } from "lib/result";
 
 export const makeApiRecipeRepository = (): Repository<Recipe> => {
   return {
