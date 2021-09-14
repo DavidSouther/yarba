@@ -1,5 +1,7 @@
-import { getRecipe } from "models/repositories/recipe";
+import { getRepository } from "lib/models/repositories/recipe";
 import { NextApiRequest, NextApiResponse } from "next";
+
+const repository = getRepository();
 
 export default async function handler(
   req: NextApiRequest,
@@ -10,7 +12,7 @@ export default async function handler(
     res.status(400).json({ error: `Invalid recipe id ${req.query["id"]}` });
     return;
   }
-  const recipe = await getRecipe(id);
+  const recipe = await repository.get(id);
   if (recipe === undefined) {
     res.status(404).json({ error: `Recipe not found: ${id}` });
     return;
