@@ -1,4 +1,14 @@
-import { Err, None, Ok, Option, Result, Some, unwrap } from "lib/result";
+import {
+  Err,
+  None,
+  Ok,
+  Option,
+  Result,
+  Some,
+  unwrap,
+  unwrapOr,
+  unwrapOrElse,
+} from "lib/result";
 
 describe("Result", () => {
   it("converts Nones", () => {
@@ -49,6 +59,34 @@ describe("Result", () => {
     expect(() => unwrap(b)).toThrow("Attempted to unwrap None");
     expect(() => unwrap(d)).toThrow("err");
     expect(unwrap(e)).toBe("else");
+  });
+
+  it("unwraps", () => {
+    const a = Some("some");
+    const b = None();
+    const c = Ok("ok");
+    const d = Err(new Error("err"));
+    const e = "else";
+
+    expect(unwrapOr(a, "z")).toBe("some");
+    expect(unwrapOr(c, "z")).toBe("ok");
+    expect(unwrapOr(b, "z")).toBe("z");
+    expect(unwrapOr(d, "z")).toBe("z");
+    expect(unwrapOr(e, "z")).toBe("else");
+  });
+
+  it("unwraps", () => {
+    const a = Some("some");
+    const b = None();
+    const c = Ok("ok");
+    const d = Err(new Error("err"));
+    const e = "else";
+
+    expect(unwrapOrElse(a, () => "z")).toBe("some");
+    expect(unwrapOrElse(c, () => "z")).toBe("ok");
+    expect(unwrapOrElse(b, () => "z")).toBe("z");
+    expect(unwrapOrElse(d, () => "z")).toBe("z");
+    expect(unwrapOrElse(e, () => "z")).toBe("else");
   });
 });
 

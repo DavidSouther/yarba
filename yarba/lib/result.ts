@@ -48,6 +48,30 @@ export function unwrap<T, E extends Error>(t: Option<T> | Result<T, E>): T {
   return t as Some<T>;
 }
 
+export function unwrapOr<T>(result: Result<T, Error>, def: T): T;
+export function unwrapOr<T>(some: Some<T>, def: T): T;
+export function unwrapOr<T, E extends Error>(
+  t: Option<T> | Result<T, E>,
+  def: T
+): T {
+  if (isNone(t as None)) return def;
+  if (isErr(t as Result<T, E>)) return def;
+  if (isOk(t as Result<T, E>)) return Ok(t as Ok<T>);
+  return t as Some<T>;
+}
+
+export function unwrapOrElse<T>(result: Result<T, Error>, def: () => T): T;
+export function unwrapOrElse<T>(some: Some<T>, def: () => T): T;
+export function unwrapOrElse<T, E extends Error>(
+  t: Option<T> | Result<T, E>,
+  def: () => T
+): T {
+  if (isNone(t as None)) return def();
+  if (isErr(t as Result<T, E>)) return def();
+  if (isOk(t as Result<T, E>)) return Ok(t as Ok<T>);
+  return t as Some<T>;
+}
+
 export interface RepositoryError extends Error {
   repository: string;
 }
