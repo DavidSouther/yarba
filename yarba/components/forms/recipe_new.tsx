@@ -1,7 +1,9 @@
 import Form from "components/form";
 import Input from "components/input";
 import Textarea from "components/textarea";
-import { newRecipe, Recipe } from "lib/models/recipe";
+import { Recipe } from "lib/models/recipe";
+import { getRepository } from "lib/models/repositories/recipe";
+import { Err, isErr, unwrap } from "lib/result";
 import URLs from "lib/urls";
 import { useRouter } from "next/dist/client/router";
 import { FC, FormEventHandler, useState } from "react";
@@ -10,19 +12,20 @@ const NewRecipeForm: FC<{}> = () => {
   const router = useRouter();
   const [err, setErr] = useState<Error | undefined>(undefined);
 
-  const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
+  const onSubmit = async (e: Record<string, string>) => {
     setErr(undefined);
-    const recipeName = e.currentTarget["recipe-name"].value;
-    const servingCount = Number(e.currentTarget["serving-count"].value);
-    const instructions = e.currentTarget["instructions"].value;
+    const recipeName = e["recipe-name"];
+    const servingCount = Number(e["serving-count"]);
+    const instructions = e["instructions"];
 
     const recipe: Recipe = { recipeName, servingCount, instructions };
 
-    try {
-      await newRecipe(recipe);
+    const add = await getRepository().add(recipe);
+    if (isErr(add)) {
+      const err = Err(add);
+      setErr(err);
+    } else {
       router.push(URLs.home);
-    } catch (e) {
-      setErr(e as Error);
     }
   };
 

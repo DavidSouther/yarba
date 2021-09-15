@@ -1,7 +1,7 @@
 import { parseRecipe, Recipe } from "lib/models/recipe";
 import { err } from "lib/models/repositories/recipe/recipe";
 import { Repository } from "lib/models/repositories/repository";
-import { Ok, isErr } from "lib/result";
+import { Ok, isErr, Err } from "lib/result";
 
 export const makeApiRecipeRepository = (): Repository<Recipe> => {
   return {
@@ -16,11 +16,12 @@ export const makeApiRecipeRepository = (): Repository<Recipe> => {
         const { ok, statusText } = response;
         const body = await response.json();
         if (!ok) {
-          const name = body.error["name"] ?? statusText;
-          const message = body.error["message"] ?? "Failed to save recipe";
+          const error = Err(body as Err<Error>);
+          const name = error.name || statusText;
+          const message = error.message || "Failed to save recipe";
           return err({ name, message });
         }
-        return Ok(body);
+        return body;
       });
     },
     async get(id: string | number) {
@@ -28,8 +29,9 @@ export const makeApiRecipeRepository = (): Repository<Recipe> => {
         const { ok, statusText } = response;
         const body = await response.json();
         if (!ok) {
-          const name = body.error["name"] ?? statusText;
-          const message = body.error["message"] ?? "Failed to save recipe";
+          const error = Err(body as Err<Error>);
+          const name = error.name || statusText;
+          const message = error.message || "Failed to save recipe";
           return err({ name, message });
         }
         const recipe = parseRecipe(body);

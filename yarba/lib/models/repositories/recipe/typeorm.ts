@@ -21,7 +21,8 @@ export const TypeOrmRecipeRepository: Repository<Recipe> = {
     try {
       return Ok(await (await getRecipeRepository()).save(recipe));
     } catch (e) {
-      return err(e as Error);
+      // TypeORM errors are weird
+      return err({ ...(e as Error), name: "TypeORM", message: `${e}` });
     }
   },
 
