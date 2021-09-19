@@ -24,6 +24,9 @@ export const isOk = <T, E extends Error = Error>(t: Result<T, E>): t is Ok<T> =>
   (t as Ok<T>).ok !== undefined;
 export const isErr = <E extends Error>(e: Result<unknown, E>): e is Err<E> =>
   (e as Err<E>).err !== undefined;
+export const isResult = <T, E extends Error = Error>(
+  t: T | Result<T, E>
+): t is Result<T, E> => isOk(t as Result<T, E>) || isErr(t as Result<T, E>);
 
 // Beware: Order matters for correct inference.
 export function Ok<T>(ok: Ok<T>): T;
@@ -33,9 +36,9 @@ export function Ok<T>(t: T | Ok<T>) {
 }
 
 // Beware: Order matters for correct inference.
-export function Err<E extends Error>(e: string): Err<E>;
 export function Err<E extends Error>(e: E): Err<E>;
-export function Err<E extends Error>(err: Err<E>): E;
+export function Err<E extends Error>(e: string): Err<E>;
+export function Err<E extends Error>(e: unknown): Err<E>;
 export function Err<E extends Error>(e: Err<E> | E) {
   return (e as Err<E>).err ?? { err: typeof e === "string" ? new Error(e) : e };
 }

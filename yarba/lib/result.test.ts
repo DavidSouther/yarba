@@ -41,18 +41,18 @@ describe("Result", () => {
   });
 
   it("converts Oks", () => {
-    const a: Ok<string> = Ok("a ok");
+    const a: Result<string> = Ok("a ok");
     const b: string = Ok(a);
 
     expect(b).toBe("a ok");
   });
 
   it("unwraps", () => {
-    const a = Some("some");
-    const b = None();
-    const c = Ok("ok");
-    const d = Err(new Error("err"));
-    const e = "else";
+    const a: Option<string> = Some("some");
+    const b: Option<string> = None();
+    const c: Result<string, Error> = Ok("ok");
+    const d: Result<string, Error> = Err(new Error("err"));
+    const e: Option<string> = "else";
 
     expect(unwrap(a)).toBe("some");
     expect(unwrap(c)).toBe("ok");
@@ -61,12 +61,12 @@ describe("Result", () => {
     expect(unwrap(e)).toBe("else");
   });
 
-  it("unwraps", () => {
-    const a = Some("some");
-    const b = None();
-    const c = Ok("ok");
-    const d = Err(new Error("err"));
-    const e = "else";
+  it("unwrapsOrs", () => {
+    const a: Option<string> = Some("some");
+    const b: Option<string> = None();
+    const c: Result<string, Error> = Ok("ok");
+    const d: Result<string, Error> = Err(new Error("err"));
+    const e: Option<string> = "else";
 
     expect(unwrapOr(a, "z")).toBe("some");
     expect(unwrapOr(c, "z")).toBe("ok");
@@ -75,12 +75,12 @@ describe("Result", () => {
     expect(unwrapOr(e, "z")).toBe("else");
   });
 
-  it("unwraps", () => {
-    const a = Some("some");
-    const b = None();
-    const c = Ok("ok");
-    const d = Err(new Error("err"));
-    const e = "else";
+  it("unwrapsOrElse", () => {
+    const a: Option<string> = Some("some");
+    const b: Option<string> = None();
+    const c: Result<string, Error> = Ok("ok");
+    const d: Result<string, Error> = Err(new Error("err"));
+    const e: Option<string> = "else";
 
     expect(unwrapOrElse(a, () => "z")).toBe("some");
     expect(unwrapOrElse(c, () => "z")).toBe("ok");
