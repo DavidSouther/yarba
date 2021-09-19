@@ -1,5 +1,5 @@
-import { Result, RepositoryError, Err } from "lib/result";
+import { RepositoryError, Err } from "lib/result";
 
-export const err = (e: Error): Result<never, RepositoryError> => {
+export const err = (e: unknown | any | Error): Err<RepositoryError> => {
   return Err({ repository: "TypeOrmRecipeRepository", ...e });
 };

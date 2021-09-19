@@ -1,7 +1,7 @@
 import { parseRecipe, Recipe } from "lib/models/recipe";
 import { err } from "lib/models/repositories/recipe/recipe";
 import { Repository } from "lib/models/repositories/repository";
-import { Ok, isErr, Err } from "lib/result";
+import { Ok, isErr, Err, Result, RepositoryError } from "lib/result";
 
 export const makeApiRecipeRepository = (): Repository<Recipe> => {
   return {
@@ -14,9 +14,9 @@ export const makeApiRecipeRepository = (): Repository<Recipe> => {
         body: JSON.stringify(recipe),
       }).then(async (response) => {
         const { ok, statusText } = response;
-        const body = await response.json();
-        if (!ok) {
-          const error = Err(body as Err<Error>);
+        const body = (await response.json()) as Result<Recipe, RepositoryError>;
+        if (!ok && isErr(body)) {
+          const error = Err(body);
           const name = error.name || statusText;
           const message = error.message || "Failed to save recipe";
           return err({ name, message });
@@ -35,7 +35,7 @@ export const makeApiRecipeRepository = (): Repository<Recipe> => {
           return err({ name, message });
         }
         const recipe = parseRecipe(body);
-        return isErr(recipe) ? err(recipe.err) : recipe;
+        return isErr(recipe) ? err(Err(recipe)) : recipe;
       });
     },
     async list() {

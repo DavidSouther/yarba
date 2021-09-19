@@ -1,9 +1,9 @@
 import { getConnection } from "lib/connection";
+import { asyncUsing, Context, Enter, Exit, using } from "lib/context";
 import { RecipeEntity } from "lib/models/entities/recipe";
 import { Recipe } from "lib/models/recipe";
 import { err } from "lib/models/repositories/recipe/recipe";
 import { Repository } from "lib/models/repositories/repository";
-import { Ok } from "lib/result";
 import { getRepository } from "typeorm";
 import { Repository as TypeOrmRepository } from "typeorm";
 
@@ -16,37 +16,47 @@ async function getRecipeRepository(): Promise<TypeOrmRepository<Recipe>> {
   return getRepository<Recipe>(RecipeEntity);
 }
 
-export const TypeOrmRecipeRepository: Repository<Recipe> = {
-  async add(recipe: Recipe) {
-    try {
-      return Ok(await (await getRecipeRepository()).save(recipe));
-    } catch (e) {
-      // TypeORM errors are weird
-      return err({ ...(e as Error), name: "TypeORM", message: `${e}` });
-    }
-  },
+async function RecipeRepository(): Promise<
+  Context & { recipes: TypeOrmRepository<Recipe> }
+> {
+  return {
+    [Enter]() {},
+    [Exit]() {},
+    recipes: await getRecipeRepository(),
+  };
+}
 
-  async get(id: number) {
-    try {
-      const recipe = await (await getRecipeRepository()).findOne(id);
-      if (recipe) {
-        return Ok(recipe);
-      } else {
-        return err({
+export const TypeOrmRecipeRepository: Repository<Recipe> = {
+  add: async (recipe: Recipe) =>
+    asyncUsing(
+      RecipeRepository,
+      async ({ recipes }) => {
+        try {
+          return recipes.save(recipe);
+        } catch (e) {
+          // TypeORM errors are weird
+          throw { ...(e as Error), name: "TypeORM", message: `${e}` };
+        }
+      },
+      err
+    ),
+
+  get: async (id: number) =>
+    asyncUsing(
+      RecipeRepository,
+      async ({ recipes }) =>
+        (await recipes.findOne(id)) ??
+        err({
           name: `Missing recipe`,
           message: `Recipe ${id} not in database`,
-        });
-      }
-    } catch (e) {
-      return err(e as Error);
-    }
-  },
+        }),
+      err
+    ),
 
-  async list() {
-    try {
-      return Ok(await (await getRecipeRepository()).find());
-    } catch (e) {
-      return err(e as Error);
-    }
-  },
+  list: async () =>
+    asyncUsing(
+      RecipeRepository,
+      async ({ recipes }) => await recipes.find(),
+      err
+    ),
 };
