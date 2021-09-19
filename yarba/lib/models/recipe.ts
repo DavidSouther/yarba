@@ -4,7 +4,24 @@ export interface Recipe {
   id?: number;
   recipeName: string;
   servingCount: number;
-  instructions: string;
+  instructions: string[];
+}
+
+export interface Ingredient {
+  name: string;
+  recipe: Recipe;
+  measurement: Measurement;
+}
+
+export enum MeasurementBasis {
+  Volume,
+  Weight,
+  Count,
+}
+
+export interface Measurement {
+  amount: number;
+  basis: MeasurementBasis;
 }
 
 export function parseRecipe(
@@ -12,7 +29,6 @@ export function parseRecipe(
 ): Result<Recipe, Error> {
   const recipeName = body["recipeName"] ?? "";
   const servingCount = Number(body["servingCount"]);
-  const instructions = body["instructions"] ?? "";
 
   if (recipeName.length <= 0) {
     return Err({
@@ -32,13 +48,20 @@ export function parseRecipe(
       message: "We only deal with normal numbers of people",
     });
   }
-  if (instructions.length <= 0) {
+  if (body["instructions"].length <= 0) {
     return Err({
       name: "INSTRUCTIONS_REQUIRED",
       message:
         "Lists of ingredients are fine, but how do we put them together?",
     });
   }
+  const instructions = parseInstructions(body["instructions"]);
 
   return Ok({ recipeName, servingCount, instructions });
+}
+
+function parseInstructions(instructions: string | string[]): string[] {
+  return (
+    typeof instructions == "string" ? instructions.split("\n") : instructions
+  ).filter((step) => step.trim().length > 0);
 }

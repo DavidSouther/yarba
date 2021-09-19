@@ -24,13 +24,12 @@
 * Recipe (One relationship)
 * Measurement (Embedded Data)
 
-+ parseIngredient(`${name} ${measurement}`)
++ parseIngredient(`${name} ${measurement}|${measurement} ${name}`)
 
 ## Measurement
 
-* Volume (Liter) | Weight (Grams) | Count
-* 
 * Amount (Number)
+* Volume (Liter) | Weight (Grams) | Count
 
 + parseMeasurement(string)
 + toMetric()

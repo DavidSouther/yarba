@@ -6,3 +6,8 @@ export interface Repository<T extends ObjectLiteral> {
   get(id: string | number): Promise<Result<T, RepositoryError>>;
   list(): Promise<Result<T[], RepositoryError>>;
 }
+
+export interface Transaction {
+  rollback(): void;
+  commit(): void;
+}

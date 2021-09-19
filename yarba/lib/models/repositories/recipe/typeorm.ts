@@ -1,5 +1,5 @@
 import { getConnection } from "lib/connection";
-import { asyncUsing, Context, Enter, Exit, using } from "lib/context";
+import { asyncUsing, Context, Enter, Exit } from "lib/context";
 import { RecipeEntity } from "lib/models/entities/recipe";
 import { Recipe } from "lib/models/recipe";
 import { err } from "lib/models/repositories/recipe/recipe";
