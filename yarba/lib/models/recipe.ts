@@ -1,7 +1,21 @@
+import { Measurement } from "lib/models/measurement";
 import { Result, Err, Ok } from "lib/result";
+
+export enum RecipeCategory {
+  Technique,
+  Appetizer,
+  Bread,
+  Soup,
+  Salad,
+  Main,
+  Side,
+  Desert,
+  Pantry,
+}
 
 export interface Recipe {
   id?: number;
+  category: RecipeCategory;
   recipeName: string;
   servingCount: number;
   instructions: string[];
@@ -11,17 +25,6 @@ export interface Ingredient {
   name: string;
   recipe: Recipe;
   measurement: Measurement;
-}
-
-export enum MeasurementBasis {
-  Volume,
-  Weight,
-  Count,
-}
-
-export interface Measurement {
-  amount: number;
-  basis: MeasurementBasis;
 }
 
 export function parseRecipe(

@@ -1,5 +1,6 @@
 import {
   add,
+  Eighth,
   Fraction,
   Half,
   One,
@@ -29,9 +30,17 @@ describe("Fraction", () => {
     });
 
     it("rounds obtuse fractions", () => {
-      const n = Fraction(1.1, 16);
-      const rounded = round(n);
+      let n = Fraction(1.1, 16);
+      let rounded = round(n);
       expect(rounded).toEqual(Sixteenth());
+
+      n = Fraction(2.4, 16);
+      rounded = round(n);
+      expect(rounded).toEqual(Eighth());
+
+      n = Fraction(2.9, 16);
+      rounded = round(n);
+      expect(rounded).toEqual(Fraction(3, 16));
     });
   });
 });

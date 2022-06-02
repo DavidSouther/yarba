@@ -29,8 +29,10 @@
 ## Measurement
 
 * Amount (Number)
-* Volume (Liter) | Weight (Grams) | Count
+* Dimension (Volume | Weight | Count)
+* Basis (l, ml, g, kg, cnt, gal, cup, qrt, pint, tbsp, tsp)
 
++ normalize(metric measurement) // Given a measurement in metric, normalize it to Milliliters / Grams / Count
++ toMetric(measurement)
++ toImperial(measurement)
 + parseMeasurement(string)
-+ toMetric()
-+ toImperial()

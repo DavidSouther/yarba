@@ -63,5 +63,5 @@ export function round(a: Fraction): Fraction {
   else if (x < 3 / 4) m = 4;
   else if (x < 3) m = 2;
   else m = 1;
-  return reduce(Fraction(Math.floor(x * m), m));
+  return reduce(Fraction(Math.round(x * m), m));
 }
